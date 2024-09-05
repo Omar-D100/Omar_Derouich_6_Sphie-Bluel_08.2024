@@ -71,3 +71,36 @@ function setFilter(data) {
 document.querySelector(".tous").addEventListener("click", () => getWorksByFilter());
 
 
+
+const portfolioEditButton = document.querySelector(".portfolio-header-edit");
+portfolioEditButton.addEventListener("click", handleEditPortfolio);
+
+const gallery = document.querySelector(".gallery");
+const galleryContent = document.querySelector(".gallery-content");
+const galleryPhotos = document.querySelector(".gallery-photos");
+gallery.addEventListener("click", closeEditPortfolio);
+galleryContent.addEventListener("click", (e) => e.stopPropagation());
+
+async function handleEditPortfolio() {
+  gallery.classList.add('active')
+
+  // for (let index = 0; index < galleryPhotos.childNodes.length; index++) {
+
+  // }
+
+  const works = await getWorks();
+  for (let index = 0; index < works.length; index++) {
+    const work = works[index];
+
+    const div = document.createElement("div");
+    div.innerHTML = `<img class="gallery-photo" src=${work.imageUrl} alt=${work.title}>`;
+    galleryPhotos.append(div);
+  }
+
+  const galleryClose = document.querySelector(".gallery-close");
+  galleryClose.addEventListener("click", closeEditPortfolio);
+}
+function closeEditPortfolio() {
+  gallery.classList.remove('active')
+}
+
