@@ -33,15 +33,15 @@
 		</nav>
 	</header>
 	<main>
+
+
 		<div class="gallery">
 			<div class="gallery-content">
 				<button type="button" class="gallery-close">
 					<i class="fa-solid fa-xmark"></i>
 				</button>
 				<h2>Galerie photo</h2>
-				<div class="gallery-photos">
-
-				</div>
+				<div class="gallery-photos"></div>
 				<div>
 					<button type="submit" class="gallery-add">Ajouter une photo</button>
 				</div>
@@ -64,6 +64,7 @@
 					décorateur(trice)</p>
 			</article>
 		</section>
+
 		<section id="portfolio">
 			<div class="portfolio-header">
 				<h2>Mes Projets</h2>
@@ -72,6 +73,38 @@
 					<span>modifier</span>
 				</button>
 			</div>
+
+<!-- MODALE 2 -->
+<aside id="modal2">
+	<div class="modal2-wrapper">
+		<button class="close-button">
+			<i class="fa-solid fa-xmark "></i>
+		</button>
+		<button class="return-button">
+			<i class="fa-solid fa-arrow-left "></i>
+		</button>
+		<h3>Ajout photo</h3>
+		<form id="form-add-work" action="#" method="post">
+			<div class="modal2-addimg">
+				<i class="fa-sharp fa-regular fa-image"></i>
+				<div class="add-image-button">
+					<label for="add-image" class="img-add-label">+ Ajouter photo</label>
+					<input type="file" accept="image/jpeg, image/png, image/jpg" name="picture" id="add-image">
+				</div>
+				<p class="add-image-text">jpg, png: 4mo max</p>
+			</div>
+			<div id="modal2-form">
+				<label for="modal2-img-title">Titre</label>
+				<input type="text" name="title" id="modal2-img-title">
+				<label for="modal2-img-category">Catégorie</label>
+				<select class="category-select" name="category" id="modal2-img-category"></select>
+			</div>
+			<div class="modal2-valid">
+				<input class="valid-button" type="submit" value="Valider" disabled="disabled">
+			</div>
+		</form>
+	</div>
+</aside>
 			<div class="div-parents">
 				<div class="tous"> Tous</div>
 			</div>

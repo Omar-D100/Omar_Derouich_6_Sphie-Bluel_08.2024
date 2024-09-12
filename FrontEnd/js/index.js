@@ -7,6 +7,8 @@ async function getWorks() {
   return works;
 }
 
+
+
 async function getWorksByFilter(filter) {
   portfolioGallery.innerHTML = " ";
   const url = "http://localhost:5678/api/works";
@@ -31,7 +33,6 @@ async function getWorksByFilter(filter) {
   }
 }
 getWorksByFilter();
-
 
 
 function setFigure(data) {
@@ -72,6 +73,10 @@ document.querySelector(".tous").addEventListener("click", () => getWorksByFilter
 
 
 
+
+
+
+
 const portfolioEditButton = document.querySelector(".portfolio-header-edit");
 portfolioEditButton.addEventListener("click", handleEditPortfolio);
 
@@ -81,26 +86,65 @@ const galleryPhotos = document.querySelector(".gallery-photos");
 gallery.addEventListener("click", closeEditPortfolio);
 galleryContent.addEventListener("click", (e) => e.stopPropagation());
 
+
 async function handleEditPortfolio() {
-  gallery.classList.add('active')
+  gallery.classList.add('active');
 
-  // for (let index = 0; index < galleryPhotos.childNodes.length; index++) {
-
-  // }
+  // Nettoyer la galerie avant d'ajouter des nouvelles images
+  galleryPhotos.innerHTML = '';
 
   const works = await getWorks();
   for (let index = 0; index < works.length; index++) {
     const work = works[index];
 
     const div = document.createElement("div");
-    div.innerHTML = `<img class="gallery-photo" src=${work.imageUrl} alt=${work.title}>`;
+    div.classList.add("gallery-item");
+    
+    // Structure de l'image avec le bouton "Supprimer" à l'intérieur
+    div.innerHTML = `
+      <img class="gallery-photo" src="${work.imageUrl}" alt="${work.title}">
+      <button class="delete-photo">✖</button>
+    `;
+
+    // Ajout du gestionnaire de clic pour supprimer l'image
+    const deleteButton = div.querySelector(".delete-photo");
+    deleteButton.addEventListener("click", () => {
+      div.remove(); // Supprimer l'image du DOM
+      deleteWork(work.id); // Suppression côté serveur (si nécessaire)
+    });
+
     galleryPhotos.append(div);
   }
 
   const galleryClose = document.querySelector(".gallery-close");
   galleryClose.addEventListener("click", closeEditPortfolio);
+
 }
+
+const galleryAddButton = document.querySelector(".gallery-add");
+const modal2 = document.querySelector("#modal2");
+
+
+galleryAddButton.addEventListener("click", () => {
+  gallery.classList.remove('active'); // Fermer la galerie
+  modal2.classList.add('active');    // Ouvrir le modal2
+});
+
 function closeEditPortfolio() {
   gallery.classList.remove('active')
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

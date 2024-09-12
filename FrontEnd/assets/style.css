@@ -140,46 +140,6 @@ li:hover {
 	cursor: pointer;
 }
 
-.gallery {
-	overflow: hidden;
-	position: fixed;
-	left: 0;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	background-color: rgba(0, 0, 0, 30%);
-	display: none;
-}
-
-.gallery.active {
-	display: block;
-}
-
-.gallery-content {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: white;
-	padding: 20px;
-	border-radius: 10px;
-}
-
-.gallery-close {
-	background-color: transparent;
-	border: none;
-	font-size: 1.5rem;
-	cursor: pointer;
-}
-.gallery-photos {
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-}
-.gallery-photo {
-	width: 60px;
-	display: block;
-	object-fit: contain;
-}
 
 .div-parents {
 	min-width: 550px; 
@@ -209,6 +169,7 @@ li:hover {
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
+	margin: 20px;
 }
 
 .portfolio-gallery img {
@@ -307,107 +268,329 @@ ul li a{
 }
 
 
+/***** MODE EDITION *****/
 
-/* Edit banner */
-#edit {
-	width: 100vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background-color: black;
-    height: 60px;
-    margin-left: calc(-1 * ((100vw - 100%) / 2));
-}
-#edit > ul {
-	width: 28%;
-	display: flex;
-	justify-content: space-between;
-}
-.editLi {
-	color: white;
-}
-.editLi>a {
-	color: white;
-	text-decoration: none;
-}
-.editLi>i {
-	color: white;
-}
-.editLi:hover {
-	cursor: pointer;
-	color: white;
-}
-#publishChanges{
-	background-color: white;
-	color: black;
-	width: auto;
-	border: 0.15em white solid;
-	padding: 9px 17px;
-	border-radius: 25px;
-	font-weight: bold;
-}
-#editMode {
-	padding: 9px 17px;
-}
-
-
-/* modal */
-
-.modal {
-	position: fixed;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	top: 0;
-	left: 0;
+#edition {
 	width: 100%;
-	height: 100%;
-	background: rgba(0, 0,0,0.8);
+	height: 59px;
+	background-color: black;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-family: 'Work Sans';
+	font-size: 16px;
+	font-weight: 500;
+	gap: 15px;
 }
 
-.modal-wrapper {
-	overflow: auto;
-	width: 600px;
-	max-width: calc(100vh - 20px);
-	max-height: calc(100vh - 20px);
-	padding: 20px;
+.editionButton {
+	background: black;
+	color: white;
+	border: none;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	font-family: 'Work Sans';
+	font-weight: 500;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.editionModif {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.btn-publish {
+	width: 215px;
+	height: 38px;
 	background-color: white;
+	border: none;
+	border-radius: 60px;
+	font-family: 'Work Sans';
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 16px;
+	text-align: center;
+	cursor: pointer;
 }
 
-.file-section {
-	background-color: #E8F1F6;
+i {
+	font-size: 17px;
+	margin-right: 7px;
+}
+
+.editButton {
+	background: white;
+	color: black;
+	border: none;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	font-family: 'Work Sans';
+	font-weight: 500;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.editImage {
+	margin-top: 15px;
+	margin-left: 55px;
+}
+
+.editArticle {
+	margin-bottom: 40px;
+}
+
+.titleWorks {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+	margin-bottom: 50px;
+}
+
+
+
+/***** MODALE 1 *****/
+
+
+.gallery {
+	overflow: hidden;
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 30%);
+	display: none;
+}
+
+.gallery.active {
+	display: block;
+}
+
+.gallery-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+	height: 70%;
+	width: 40%;
+}
+
+.gallery-close {
+	background-color: transparent;
+	border: none;
+	font-size: 1.5rem;
+	cursor: pointer;
+	position: relative;
+	left: 90%;
+}
+.gallery-photos {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	
+	
+}
+.gallery-photo {
+	width: 60px;
+	display: block;
+	object-fit: contain;
+	margin: 10px;
+}
+
+.gallery-add{
+	border: none;
+	background: none;
+	height: 40px;
+	width: 50%;
+	background-color: #1D6154;
+	border-radius: 20px;
+	color: white;
+	position: relative;
+	bottom: 90%;
+
+}
+
+.gallery-item {
+	position: relative;
+	display: inline-block;
+	margin: 10px;
+  }
+  
+  .delete-photo {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background-color: black;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	font-size: 15px;
+	border-radius: 20%;
+  }
+  
+  .delete-photo:hover {
+	background-color: grey;
+  }
+
+
+
+/***** MODALE 2 *****/
+
+#modal2 {
+	overflow: hidden;
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 30%);
+	display: none;
+}
+#modal2.active {
+	display: block; 
+  }
+
+
+.modal2-wrapper{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+	height: 70%;
+	width: 40%;
+}
+  
+
+.close-button {
+	background-color: transparent;
+	border: none;
+	font-size: 1.5rem;
+	cursor: pointer;
+}
+
+.form-add-work {
+	width: 420px;
+}
+
+.modal2-addimg {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
-	padding: 10px;
-}
-
-.file-section label {
-	padding: 10px 20px;
-    margin-top: 10px;
-    border-radius: 25px;
-    font-family: 'Syne';
-    color: white;
-    cursor: pointer;
-    background-color: #B9C5CC;
-	color: #306685;
-    width: 170px;
-	text-align: center;
+	width: 420px;
+	height: 169px;
+	background-color: #E8F1F6;
+	border-radius: 3px;
+	padding: 20px;
 }
 
 .fa-image {
-	color: #B9C5CC;
-	font-size: 50px;
-	margin-top: 5px;
+	font-size: 70px;
+	color: lightgray;
+	margin-bottom: 15px;
 }
 
-#photo-container {
-	width: 80%;
+.modal2-addimg .image-size {
+	font-family: 'Work Sans';
+	font-size: 12px;
+	font-weight: 400;
 }
-#photo-container img {
+
+#miniature-container {
+	height: 208px;
+}
+
+.miniature {
+	width: auto;
+	height: 208px;
+	object-fit: cover;
+}
+
+.add-image-button .img-add-label {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 173px;
+	height: 36px;
+	font-family: 'Work Sans';
+	font-weight: 700;
+	color: #1D6154;
+	text-align: center;
+	background-color: #B3B3B3;
+	border-radius: 60px;
+	border: none;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+.add-image-button input {
+	display: none;
+}
+
+#modal2-form {
+	display: flex;
+	flex-direction: column;
 	width: 100%;
+	margin-bottom: 30px;
 }
+
+#modal2-form input {
+	width: 100%;
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09)
+}
+
+#modal2-form label {
+	margin: 2em 0 1em 0;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.modal2-valid {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 420px;
+	border-top: 2px solid #B3B3B3;
+	padding: 20px;
+}
+
+.modal2-valid .valid-button {
+	width: 237px;
+	height: 36px;
+	font-family: 'Work Sans';
+	font-weight: 700;
+	color: white;
+	text-align: center;
+	background-color: #B3B3B3;
+	border-radius: 60px;
+	border: none;
+	margin-bottom: 10px;
+	margin-top: 20px;
+}
+
+.modal2-valid .valid-button-green {
+	background-color: #1D6154;
+	cursor: pointer;
+}
+
 
 
 /* Custom CSS */
