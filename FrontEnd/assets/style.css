@@ -482,6 +482,14 @@ i {
 	cursor: pointer;
 }
 
+#category-select {
+	display: block;
+	width: 100%; /* pour s'assurer qu'il est visible */
+	height: auto;
+	visibility: visible;
+	opacity: 1;
+  }
+
 .form-add-work {
 	width: 420px;
 }

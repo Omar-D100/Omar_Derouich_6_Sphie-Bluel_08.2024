@@ -178,8 +178,33 @@ modal2.addEventListener("click", closeModal2);
 
 
 
+const categorySelect = document.querySelector('#category-select');
 
+async function loadCategories() {
+  try {
+    const response = await fetch('http://localhost:5678/api/categories');
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des catégories');
+    }
 
+    const categories = await response.json();
+    console.log("Données récupérées :", categories); // Ajoutez cette ligne pour vérifier les données
+
+    // Effacer les options existantes sauf la première
+    categorySelect.innerHTML = '<option value="">Sélectionner une catégorie</option>';
+
+    categories.forEach(category => {
+      const option = document.createElement('option');
+      option.value = category.id;
+      option.textContent = category.name;
+      categorySelect.appendChild(option);
+    });
+  } catch (error) {
+    console.error('Erreur lors de la récupération des catégories :', error);
+  }
+}
+console.log(categorySelect); 
+document.addEventListener('DOMContentLoaded', loadCategories);
 
 
 
