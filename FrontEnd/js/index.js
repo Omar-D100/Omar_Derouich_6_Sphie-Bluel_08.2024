@@ -136,7 +136,44 @@ function closeEditPortfolio() {
 
 
 
+// modal 2 //
 
+const galleryCloseButton = document.querySelector(".gallery-close");
+const closeButton = document.querySelector(".close-button");
+const returnButton = document.querySelector(".return-button");
+const modal2Wrapper = document.querySelector(".modal2-wrapper");
+// Empêcher la propagation des clics dans le wrapper du modal2
+modal2Wrapper.addEventListener("click", (e) => e.stopPropagation());
+
+
+function closeEditPortfolio() {
+  gallery.classList.remove('active');
+  modal2.classList.remove('active');
+}
+
+function openModal2() {
+  gallery.classList.remove('active');
+  modal2.classList.add('active');
+}
+
+function closeModal2() {
+  modal2.classList.remove('active');
+}
+
+function returnToGallery() {
+  modal2.classList.remove('active');
+  gallery.classList.add('active');
+}
+
+galleryCloseButton.addEventListener("click", closeEditPortfolio);
+closeButton.addEventListener("click", closeModal2);
+returnButton.addEventListener("click", returnToGallery);
+galleryAddButton.addEventListener("click", openModal2);
+
+
+
+// Fermer le modal2 si vous cliquez en dehors du contenu du modal
+modal2.addEventListener("click", closeModal2);
 
 
 
