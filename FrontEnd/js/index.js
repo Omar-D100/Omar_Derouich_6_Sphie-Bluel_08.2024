@@ -225,6 +225,62 @@ galleryAdd.addEventListener("click", closeGalleryAdd);
 
 
 
+
+
+
+
+// User connecté
+
+const connected = () => {
+  // Stockage du token
+  let token = sessionStorage.getItem('token');
+  
+  // Selecteurs des différents éléments HTML
+  const editionElement = document.querySelector('#edition');
+  const editWorksButton = document.querySelector('.portfolio-header-edit');
+  const filtersWorks = document.querySelector('.div-parents');
+
+  if (token) {
+      editWorksButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (galleryOpened) return;
+          galleryOpened = true;
+          gallery.style.display = "flex";
+      });
+
+      // Changement du texte "login"
+      const loginLink = document.querySelector('.loginLink');
+      loginLink.textContent = "logout";
+
+      // Création du lien de déconnexion
+      const logoutLink = document.querySelector('#logoutLink');
+      logoutLink.addEventListener('click', () => {
+          sessionStorage.removeItem('token');
+          window.location.href = './login.html';
+      });
+
+      
+  } else {
+      editionElement.style.display = 'none';
+      editWorksButton.style.display = 'none';
+      filtersWorks.style.display = 'none';
+  }
+
+};
+connected();
+
+
+
+
+
+
+
+
+
+
+
+
+
 // modal ajout de l'image 
 
 document.addEventListener('DOMContentLoaded', loadCategories);
