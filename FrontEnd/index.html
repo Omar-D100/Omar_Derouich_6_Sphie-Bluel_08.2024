@@ -14,13 +14,11 @@
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 
-	
 
 <body>
 
 	<div id="edition">
 		<a class="editionButton"><i class="fa-sharp fa-regular fa-pen-to-square"></i>Mode Edition</a>
-		<button class="btn-publish">publier les changements</button>
 	</div>
 
 	<header>
@@ -29,7 +27,7 @@
 			<ul>
 				<li><a href="#portfolio">projets</a></li>
 				<li><a href="#contact">contact</a></li>
-				<li><a href="./login.html">login</a></li>
+				<li><a class="loginLink" id="logoutLink" href="./login.html">login</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -37,18 +35,6 @@
 	<main>
 
 
-		<div class="gallery">
-			<div class="gallery-content">
-				<button type="button" class="gallery-close">
-					<i class="fa-solid fa-xmark"></i>
-				</button>
-				<h2>Galerie photo</h2>
-				<div class="gallery-photos"></div>
-				<div>
-					<button type="submit" class="gallery-add">Ajouter une photo</button>
-				</div>
-			</div>
-		</div>
 
 
 		<section id="introduction">
@@ -67,6 +53,7 @@
 			</article>
 		</section>
 
+		<!-- Boutton modifier -->
 		<section id="portfolio">
 			<div class="portfolio-header">
 				<h2>Mes Projets</h2>
@@ -76,43 +63,75 @@
 				</button>
 			</div>
 
-<!-- MODALE 2 -->
-<aside id="modal2">
-	<div class="modal2-wrapper">
-		<button class="close-button">
-			<i class="fa-solid fa-xmark "></i>
-		</button>
-		<button class="return-button">
-			<i class="fa-solid fa-arrow-left "></i>
-		</button>
-		<h3>Ajout photo</h3>
-		<form id="form-add-work" action="#" method="post">
-			<div class="modal2-addimg">
-				<i class="fa-sharp fa-regular fa-image"></i>
-				<div class="add-image-button">
-					<label for="add-image" class="img-add-label">+ Ajouter photo</label>
-					<input type="file" accept="image/jpeg, image/png, image/jpg" name="picture" id="add-image">
+
+
+		<!-- MODALE 1 -->
+		<aside class="gallery">
+			<div class="gallery-content">
+				<button type="button" class="gallery-close">
+					<i class="fa-solid fa-xmark"></i>
+				</button>
+				<h2>Galerie photo</h2>
+				<div class="gallery-img-content">
+					<div class="gallery-photos"></div>
+					<div class="gallery1-button">
+						<button type="submit" class="gallery-add">Ajouter une photo</button>
+					</div>
 				</div>
-				<p class="add-image-text">jpg, png: 4mo max</p>
 			</div>
-			<div id="modal2-form">
-				<label for="modal2-img-title">Titre</label>
-				<input type="text" name="title" id="modal2-img-title">
-				<label for="modal2-img-category">Catégorie</label>
-				<select id="category-select" name="category" ></select>
-			</div>
-			<div class="modal2-valid">
-				<input class="valid-button" type="submit" value="Valider" disabled="disabled">
-			</div>
-		</form>
-	</div>
-</aside>
+		</aside>
+
+
+
+
+			<!-- MODALE 2 -->
+			<aside id="gallery-add" >
+				<div class="gallery-add-wrapper">
+					<button class="close-button" >
+						<i class="fa-solid fa-xmark"></i>
+					</button>
+					<button class="return-button">
+						<i class="fa-solid fa-arrow-left"></i>
+					</button>
+
+					<h3 id="gallery-add-title">Ajout photo</h3>
+					<form id="form-add-work" action="#" method="post" enctype="multipart/form-data">
+
+						<div class="gallery-add-img">
+							<i class="fa-sharp fa-regular"></i>
+							<div class="add-image-button">
+								<label for="add-image" class="img-add-label">+ Ajouter photo</label>
+								<input type="file" accept="image/jpeg, image/png, image/jpg" name="picture"
+									id="add-image">
+							</div>
+							<p class="add-image-text">jpg, png: 4mo max</p>
+						</div>
+
+						<div id="gallery-add-form">
+							<label for="gallery-add-img-title">Titre</label>
+							<input type="text" name="title" id="gallery-add-img-title" required>
+							<label for="gallery-add-img-category">Catégorie</label>
+							<select id="category-select" name="category" required>
+								<!-- Options à ajouter dynamiquement -->
+							</select>
+						</div>
+
+						<div class="gallery-add-valid">
+							<input class="valid-button" type="submit" value="Valider" disabled>
+						</div>
+					</form>
+				</div>
+			</aside>
+
+
 			<div class="div-parents">
 				<div class="tous"> Tous</div>
 			</div>
 			<div class="portfolio-gallery">
 			</div>
 		</section>
+
+
 		<section id="contact">
 			<h2>Contact</h2>
 			<p>Vous avez un projet ? Discutons-en !</p>

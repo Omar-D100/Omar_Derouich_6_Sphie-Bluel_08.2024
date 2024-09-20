@@ -56,7 +56,7 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 80px 0
 }
 section {
 	margin: 50px 0
@@ -121,9 +121,7 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
-#portfolio h2 {
-	text-align: center;
-}
+
 
 .portfolio-header {
 	display: flex;
@@ -250,6 +248,7 @@ margin: auto;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	cursor: pointer;
 }
 #login label {
 	margin: 2em 0 1em 0;
@@ -271,18 +270,16 @@ ul li a{
 /***** MODE EDITION *****/
 
 #edition {
-	width: 100%;
-	height: 59px;
 	background-color: black;
+	color: white;
+	height: 50px;
 	display: flex;
-	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	color: white;
-	font-family: 'Work Sans';
-	font-size: 16px;
-	font-weight: 500;
-	gap: 15px;
+	width: 100vw; 
+	position: absolute; 
+	left: 0; 
+	top: 0; 
 }
 
 .editionButton {
@@ -382,9 +379,33 @@ i {
 	background-color: white;
 	padding: 20px;
 	border-radius: 10px;
-	height: 70%;
+	height: 75%;
 	width: 40%;
+
 }
+
+.gallery-content h2{
+	color: black;
+	font-weight: 100!important;;
+	font-size: 1.6rem;
+	text-align: center;
+
+}
+
+.gallery-img-content{
+	width: 70%;
+	margin: auto;
+}
+
+.gallery1-button{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top: 2px solid #B3B3B3;
+	padding: 20px;
+	margin: auto;
+}
+
 
 .gallery-close {
 	background-color: transparent;
@@ -392,7 +413,7 @@ i {
 	font-size: 1.5rem;
 	cursor: pointer;
 	position: relative;
-	left: 90%;
+	left: 95%;
 }
 .gallery-photos {
 	display: grid;
@@ -401,24 +422,28 @@ i {
 	
 }
 .gallery-photo {
-	width: 60px;
+	width: 70px;
+	height: 110px;
 	display: block;
 	object-fit: contain;
 	margin: 10px;
 }
 
 .gallery-add{
-	border: none;
-	background: none;
-	height: 40px;
-	width: 50%;
-	background-color: #1D6154;
-	border-radius: 20px;
+	width: 237px;
+	height: 36px;
+	font-family: 'Work Sans';
+	font-weight: 700;
 	color: white;
-	position: relative;
-	bottom: 90%;
-
+	text-align: center;
+	background-color: #1D6154;;
+	border-radius: 60px;
+	border: none;
+	margin-bottom: 10px;
+	margin-top: 20px;
+	cursor: pointer;
 }
+
 
 .gallery-item {
 	position: relative;
@@ -435,8 +460,10 @@ i {
 	border: none;
 	padding: 5px 10px;
 	cursor: pointer;
-	font-size: 15px;
+	font-size: 1px;
 	border-radius: 20%;
+	height: 35px;
+	width: 35px;
   }
   
   .delete-photo:hover {
@@ -447,7 +474,7 @@ i {
 
 /***** MODALE 2 *****/
 
-#modal2 {
+#gallery-add {
 	overflow: hidden;
 	position: fixed;
 	left: 0;
@@ -457,12 +484,13 @@ i {
 	background-color: rgba(0, 0, 0, 30%);
 	display: none;
 }
-#modal2.active {
+#gallery-add.active {
 	display: block; 
   }
 
 
-.modal2-wrapper{
+
+.gallery-add-wrapper{
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -470,49 +498,65 @@ i {
 	background-color: white;
 	padding: 20px;
 	border-radius: 10px;
-	height: 70%;
 	width: 40%;
 }
   
-
 .close-button {
 	background-color: transparent;
 	border: none;
 	font-size: 1.5rem;
 	cursor: pointer;
+	position: relative;
+	left: 95%;
+}
+
+.return-button {
+	background-color: transparent;
+	border: none;
+	font-size: 1.5rem;
+	cursor: pointer;
+	position: relative;
+	right: 5%;
 }
 
 #category-select {
-	display: block;
-	width: 100%; /* pour s'assurer qu'il est visible */
-	height: auto;
-	visibility: visible;
-	opacity: 1;
+	width: 100%;
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09)
   }
 
 .form-add-work {
 	width: 420px;
 }
 
-.modal2-addimg {
+#gallery-add h3 {
+	font-size: 1.6rem;
+	text-align: center;
+	margin: 30px;
+}
+
+.gallery-add-img {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 420px;
 	height: 169px;
 	background-color: #E8F1F6;
 	border-radius: 3px;
 	padding: 20px;
+	margin: auto;
 }
 
-.fa-image {
+.icon-image {
 	font-size: 70px;
-	color: lightgray;
+	color: rgb(45, 171, 38);
 	margin-bottom: 15px;
+	z-index: 999;
 }
 
-.modal2-addimg .image-size {
+.gallery-add-img .image-size {
 	font-family: 'Work Sans';
 	font-size: 12px;
 	font-weight: 400;
@@ -526,6 +570,13 @@ i {
 	width: auto;
 	height: 208px;
 	object-fit: cover;
+	display: block;
+}
+
+#form-add-work {
+
+	width: 70%;
+	margin: auto;
 }
 
 .add-image-button .img-add-label {
@@ -550,14 +601,14 @@ i {
 	display: none;
 }
 
-#modal2-form {
+#gallery-add-form {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	margin-bottom: 30px;
 }
 
-#modal2-form input {
+#gallery-add-form input {
 	width: 100%;
 	height: 50px;
 	font-size: 1.2em;
@@ -565,22 +616,22 @@ i {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09)
 }
 
-#modal2-form label {
+#gallery-add-form label {
 	margin: 2em 0 1em 0;
 	font-size: 14px;
 	font-weight: 500;
 }
 
-.modal2-valid {
+.gallery-add-valid {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 420px;
 	border-top: 2px solid #B3B3B3;
 	padding: 20px;
+	margin: auto;
 }
 
-.modal2-valid .valid-button {
+.gallery-add-valid .valid-button {
 	width: 237px;
 	height: 36px;
 	font-family: 'Work Sans';
@@ -592,14 +643,13 @@ i {
 	border: none;
 	margin-bottom: 10px;
 	margin-top: 20px;
+
 }
 
-.modal2-valid .valid-button-green {
+.gallery-add-valid .valid-button-green {
 	background-color: #1D6154;
 	cursor: pointer;
 }
-
-
 
 /* Custom CSS */
 .login-form-group {
@@ -609,3 +659,21 @@ i {
 .login-form-error {
 	color: red;	
 }
+
+@media only screen and (max-width: 745px) {
+
+	.gallery-add-wrapper{
+		width: 80%;
+	}
+
+	.gallery-content {
+		width: 80%;
+	}
+
+	.div-parents {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	 
+
+  }
