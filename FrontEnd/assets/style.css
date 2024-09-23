@@ -56,7 +56,7 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 80px 0
+	margin: 70px 0
 }
 section {
 	margin: 50px 0
@@ -139,15 +139,14 @@ li:hover {
 }
 
 
-.div-parents {
-	min-width: 550px; 
+.category-div-parents {
 	width: 50%;
 	display: flex;
-	justify-content: space-evenly;
 	margin: 35px auto;
+	gap: 10px;
 }
 
-.div-parents > * {
+.category-div-parents > * {
 	padding: 10px 20px;
 	border: 1px solid #1D6154;
 	border-radius: 25px;
@@ -156,13 +155,12 @@ li:hover {
 	cursor: pointer;
 }
 
-.div-parents > *:hover{
+.category-div-parents > *:hover{
 	background-color: #1D6154;
 	color: white;
 }
 
 .portfolio-gallery {
-	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
@@ -351,6 +349,14 @@ i {
 	margin-bottom: 50px;
 }
 
+.category {
+	background-color: transparent;
+	margin: auto;
+}
+.category.active {
+	background-color: #1D6154;
+	color: white;
+}
 
 
 /***** MODALE 1 *****/
@@ -379,31 +385,31 @@ i {
 	background-color: white;
 	padding: 20px;
 	border-radius: 10px;
-	height: 75%;
 	width: 40%;
 
 }
 
-.gallery-content h2{
-	color: black;
-	font-weight: 100!important;;
+.gallery-content-title {
+	color: black !important;
+	font-weight: 400 !important;
 	font-size: 1.6rem;
 	text-align: center;
 
 }
 
 .gallery-img-content{
-	width: 70%;
 	margin: auto;
+	max-width: 80%;
 }
 
 .gallery1-button{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-top: 2px solid #B3B3B3;
+	/* border-top: 2px solid #B3B3B3; */
 	padding: 20px;
 	margin: auto;
+	width: 60%;
 }
 
 
@@ -416,17 +422,19 @@ i {
 	left: 95%;
 }
 .gallery-photos {
+	margin-top: 20px;
+	margin-bottom: 40px;
 	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	
-	
+	row-gap: 20px;
+	grid-template-columns: repeat(auto-fill, 80px);
+	justify-content: space-between;
 }
+
 .gallery-photo {
-	width: 70px;
+	width: 100%;
 	height: 110px;
 	display: block;
 	object-fit: contain;
-	margin: 10px;
 }
 
 .gallery-add{
@@ -448,13 +456,12 @@ i {
 .gallery-item {
 	position: relative;
 	display: inline-block;
-	margin: 10px;
   }
   
   .delete-photo {
 	position: absolute;
-	top: 10px;
-	right: 10px;
+	top: 5px;
+	right: 5px;
 	background-color: black;
 	color: white;
 	border: none;
@@ -462,13 +469,30 @@ i {
 	cursor: pointer;
 	font-size: 1px;
 	border-radius: 20%;
-	height: 35px;
-	width: 35px;
+	width: 20px;
+
+
   }
   
   .delete-photo:hover {
 	background-color: grey;
   }
+
+
+ .delete-icon{
+	font-size: 10px;
+	display: flex;
+	justify-content: center;
+
+
+ }
+
+
+
+
+
+
+
 
 
 
@@ -587,9 +611,9 @@ i {
 	height: 36px;
 	font-family: 'Work Sans';
 	font-weight: 700;
-	color: #1D6154;
+	color: rgb(49, 101, 133);
 	text-align: center;
-	background-color: #B3B3B3;
+	background-color: rgb(185, 197, 204);
 	border-radius: 60px;
 	border: none;
 	margin-bottom: 10px;
@@ -651,6 +675,11 @@ i {
 	cursor: pointer;
 }
 
+.icon-form{
+	font-size: 100px;
+	color: rgb(185, 197, 204);
+}
+
 /* Custom CSS */
 .login-form-group {
 	display: flex;
@@ -670,10 +699,30 @@ i {
 		width: 80%;
 	}
 
-	.div-parents {
-		display: flex;
-		flex-wrap: wrap;
+	.category{
+		width: 100%;
+	}
+
+	.category-div-parents {
+		display: grid; 
+		grid-auto-columns: 1fr; 
+		grid-template-columns: 1fr 1fr; 
+		grid-template-rows: 1fr 1fr; 
+		gap: 20px 20px; 
+		justify-content: center;
 	}
 	 
+
+  }
+
+  @media only screen and (max-width: 425px) {
+	
+	header ul{
+		display: grid; 
+		grid-auto-columns: 1fr; 
+		grid-template-columns: 1fr 1fr; 
+		gap: 20px 20px; 
+	}
+
 
   }

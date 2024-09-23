@@ -9,33 +9,24 @@ async function getWorks() {
   return works;
 }
 
+
 // Fonction pour récupérer les travaux filtrés par catégorie
 async function getWorksByFilter(filter) {
   portfolioGallery.innerHTML = ""; // Vider la galerie avant d'ajouter des nouvelles images
   const url = "http://localhost:5678/api/works";
   try {
     const response = await fetch(url);
-    const json = await response.json();
-
-    if (filter) {
-      // Filtrer les travaux par catégorie
-      const filtered = json.filter((data) => data.categoryId === filter);
-      for (let i = 0; i < filtered.length; i++) {
-        setFigure(filtered[i]); // Ajouter chaque travail filtré à la galerie
-      }
-    } else {
-      // Ajouter tous les travaux à la galerie
-      for (let i = 0; i < json.length; i++) {
-        setFigure(json[i]);
-      }
+    const data = await response.json();
+    const filteredData = filter ? data.filter((work) => work.category.id === filter.id) : data;
+    for (let i = 0; i < filteredData.length; i++) {
+      console.log(filteredData[i]);
+      setFigure(filteredData[i]); // Ajouter chaque travail filtré à la galerie
     }
   } catch (error) {
     console.error(error.message); // Afficher une erreur en cas de problème
   }
 }
 
-// Ajouter un écouteur d'événement pour afficher tous les travaux lorsque le filtre "Tous" est cliqué
- document.querySelector(".tous").addEventListener("click", () => getWorksByFilter());
 
 // Appel initial pour récupérer et afficher tous les travaux
 getWorksByFilter();
@@ -48,6 +39,8 @@ function setFigure(data) {
   portfolioGallery.append(figure);
 }
 
+const divParents = document.querySelector(".category-div-parents");
+
 // Fonction pour récupérer les catégories depuis le serveur
 async function getCategories() {
   const url = "http://localhost:5678/api/categories";
@@ -57,8 +50,9 @@ async function getCategories() {
     console.log(json);
 
     // Ajouter chaque catégorie comme filtre
+    createCategory();
     for (let i = 0; i < json.length; i++) {
-      setFilter(json[i]);
+      createCategory(json[i]);
     }
   } catch (error) {
     console.error(error.message); // Afficher une erreur en cas de problème
@@ -68,29 +62,20 @@ async function getCategories() {
 // Appel initial pour récupérer et afficher les catégories
 getCategories();
 
+
 // Fonction pour créer et ajouter un filtre de catégorie
-function setFilter(data) {
-  const div = document.createElement("div");
-  div.addEventListener("click", () => getWorksByFilter(data.id)); // Ajouter un écouteur d'événement pour filtrer les travaux
-  div.innerHTML = `${data.name}`;
-  document.querySelector(".div-parents").append(div); // Ajouter le filtre à l'élément parent
+function createCategory(data) {
+  const button = document.createElement("button");
+  button.addEventListener("click", () => {
+    const activeButton = document.querySelector(".category.active");
+    activeButton.classList.remove("active");
+    button.classList.add("active");
+    getWorksByFilter(data);
+  }); // Ajouter un écouteur d'événement pour filtrer les travaux
+  button.textContent = data ? data.name : "Tous"; // Afficher le nom de la catégorie ou "Tous"
+  button.className = `category ${!data ? "active" : ""}`
+  divParents.append(button); // Ajouter le filtre à l'élément parent
 }
-
-// Ajouter un écouteur d'événement pour afficher tous les travaux lorsque le filtre "Tous" est cliqué
-document.querySelector(".tous").addEventListener("click", () => getWorksByFilter());
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Sélection des éléments du DOM
@@ -118,9 +103,8 @@ async function handleEditPortfolio() {
     div.classList.add("gallery-item");
     div.innerHTML = `
       <img class="gallery-photo" src="${work.imageUrl}" alt="${work.title}">
-      <button class="delete-photo"><i class="fa-solid fa-trash-can"></i></button>
+      <button class="delete-photo"><i class="fa-solid fa-trash-can delete-icon"></i></button>
     `;
-
     const deleteButton = div.querySelector(".delete-photo");
     deleteButton.addEventListener("click", (e) => {
       e.preventDefault();
@@ -234,46 +218,41 @@ galleryAdd.addEventListener("click", closeGalleryAdd);
 const connected = () => {
   // Stockage du token
   let token = sessionStorage.getItem('token');
-  
+
   // Selecteurs des différents éléments HTML
   const editionElement = document.querySelector('#edition');
   const editWorksButton = document.querySelector('.portfolio-header-edit');
-  const filtersWorks = document.querySelector('.div-parents');
+  const filtersWorks = document.querySelector('.category-div-parents');
 
   if (token) {
-      editWorksButton.addEventListener('click', (e) => {
-          e.preventDefault();
-          if (galleryOpened) return;
-          galleryOpened = true;
-          gallery.style.display = "flex";
-      });
+    editWorksButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (galleryOpened) return;
+      galleryOpened = true;
+      gallery.style.display = "flex";
+    });
 
-      // Changement du texte "login"
-      const loginLink = document.querySelector('.loginLink');
-      loginLink.textContent = "logout";
+    // Changement du texte "login"
+    const loginLink = document.querySelector('.loginLink');
+    loginLink.textContent = "logout";
 
-      // Création du lien de déconnexion
-      const logoutLink = document.querySelector('#logoutLink');
-      logoutLink.addEventListener('click', () => {
-          sessionStorage.removeItem('token');
-          window.location.href = './login.html';
-      });
+    // Création du lien de déconnexion
+    const logoutLink = document.querySelector('#logoutLink');
+    logoutLink.addEventListener('click', () => {
+      sessionStorage.removeItem('token');
+      window.location.href = './login.html';
+    });
 
-      
+
+
   } else {
-      editionElement.style.display = 'none';
-      editWorksButton.style.display = 'none';
-      filtersWorks.style.display = 'none';
+    editionElement.style.display = 'none';
+    editWorksButton.style.display = 'none';
+    filtersWorks.style.display = 'none';
   }
 
 };
 connected();
-
-
-
-
-
-
 
 
 
@@ -288,7 +267,7 @@ document.addEventListener('DOMContentLoaded', loadCategories);
 // Sélection des éléments HTML nécessaires
 const addImageInput = document.getElementById('add-image');
 const addImageButton = document.querySelector('.add-image-button');
-const iconeImageElement = document.querySelector('.icon-image');
+const iconeImageElement = document.querySelector('.icon-form');
 const textImageElement = document.querySelector('.add-image-text');
 const addImageContainer = document.querySelector('.gallery-add-img');
 const titleInput = document.getElementById('gallery-add-img-title');
@@ -306,6 +285,7 @@ addImageInput.addEventListener('change', (e) => {
     addImageButton.style.display = 'none';
     addImageInput.style.display = 'none';
     textImageElement.style.display = 'none';
+    iconeImageElement.style.display = 'none';
 
     // Créer un conteneur pour la miniature de l'image
     const miniatureContainer = document.createElement('div');
@@ -414,7 +394,8 @@ validButton.addEventListener('click', async (e) => {
 
   try {
     console.log('Envoi des données au serveur...');
-    const response = await fetch('http://localhost:5678/api/works1', {
+
+    const response = await fetch('http://localhost:5678/api/works', {
       method: 'POST',
       body: formData,
       headers: {
@@ -427,13 +408,10 @@ validButton.addEventListener('click', async (e) => {
     }
 
     const result = await response.json();
-    console.log('Image ajoutée avec succès :', result);
-    // Vous pouvez ajouter du code ici pour mettre à jour l'interface utilisateur si nécessaire
-    // Par exemple, fermer le modal et recharger les travaux
-    closeGalleryAdd();
-    handleEditPortfolio();
+    alert('Image ajoutée avec succès !');
+
   } catch (error) {
-    console.error('Erreur lors de l\'ajout de l\'image :', error);
+    alert('Erreur lors de l\'ajout de l\'image');
   }
 });
 
