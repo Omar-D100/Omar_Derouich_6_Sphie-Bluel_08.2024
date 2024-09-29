@@ -1,3 +1,5 @@
+"use strict";
+
 //modal 1 Sélection des éléments du DOM
 const portfolioEditButton = document.querySelector(".portfolio-header-edit");
 const gallery = document.querySelector(".gallery");
@@ -7,13 +9,29 @@ const galleryAddButton = document.querySelector(".gallery-add");
 const galleryAdd = document.querySelector("#gallery-add");
 
 // Ajout des écouteurs d'événements
-portfolioEditButton.addEventListener("click", handleEditPortfolio);
-gallery.addEventListener("click", closeEditPortfolio);
-galleryContent.addEventListener("click", (e) => e.stopPropagation());
-galleryAddButton.addEventListener("click", openGalleryAdd);
+portfolioEditButton.addEventListener("click", (e) => handleEditPortfolio(e));
+gallery.addEventListener("click", (e) => closeEditPortfolio(e));
+galleryContent.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+});
+galleryAddButton.addEventListener("click", (e) => openGalleryAdd(e));
+
+function handleDelete(event, workId , elementToRemove) {
+  event.preventDefault();
+
+  deleteWork(workId).then((deleted) => {
+    if (deleted) {
+      displayWorks(selectedCategory);
+      elementToRemove.remove();// SUPPRIMER L'IMAGE DE LA GALLERIE
+    }
+  });
+}
 
 // Fonction pour gérer l'édition du portfolio
-async function handleEditPortfolio() {
+async function handleEditPortfolio(e) {
+  e.preventDefault();
+
   gallery.classList.add('active');
   galleryPhotos.innerHTML = ''; // Nettoyer la galerie avant d'ajouter des nouvelles images
 
@@ -21,20 +39,23 @@ async function handleEditPortfolio() {
   works.forEach(work => {
     const div = document.createElement("div");
     div.classList.add("gallery-item");
-    div.innerHTML = `
-      <img class="gallery-photo" src="${work.imageUrl}" alt="${work.title}">
-      <button class="delete-photo"><i class="fa-solid fa-trash-can delete-icon"></i></button>
-    `;
-    const deleteButton = div.querySelector(".delete-photo");
-    deleteButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
 
-      deleteWork(work.id).then((deleted) => {
-        if (deleted) {
-          div.remove(); // Supprimer l'image du DOM
-        }
-      }); // Suppression côté serveur
+    const imgElement = document.createElement("img");
+    imgElement.classList.add("gallery-photo");
+    imgElement.src = work.imageUrl;
+    imgElement.alt = work.title;
+
+    const deleteButton = document.createElement("button");
+    const deleteButtonIcon = document.createElement("i");
+    deleteButtonIcon.classList.add("fa-solid", "fa-trash-can", "delete-icon");
+    deleteButton.classList.add("delete-photo");
+
+    deleteButton.appendChild(deleteButtonIcon);
+    div.appendChild(imgElement);
+    div.appendChild(deleteButton);
+
+    deleteButton.addEventListener("click", (event) => {
+      handleDelete(event, work.id , div);
     });
 
     galleryPhotos.appendChild(div);
@@ -44,13 +65,20 @@ async function handleEditPortfolio() {
   galleryClose.addEventListener("click", closeEditPortfolio);
 }
 
+
+
+
 // Fonction pour fermer la galerie
-function closeEditPortfolio() {
+function closeEditPortfolio(e) {
+  e.preventDefault();
+
   gallery.classList.remove('active');
 }
 
 // Fonction pour ouvrir le galleryAdd
-function openGalleryAdd() {
+function openGalleryAdd(e) {
+  e.preventDefault();
+
   gallery.classList.remove('active'); // Fermer la galerie
   galleryAdd.classList.add('active'); // Ouvrir le galleryAdd
 }
@@ -67,14 +95,11 @@ async function deleteWork(workId) {
     });
     return response.ok || response.status === 200;
   } catch (error) {
+    alert('Erreur lors de la suppression du travail');
     console.error('Erreur lors de la suppression du travail:', error);
   }
   return false;
 }
-
-
-
-
 
 
 
@@ -147,9 +172,9 @@ const connected = () => {
   if (token) {
     editWorksButton.addEventListener('click', (e) => {
       e.preventDefault();
-      if (galleryOpened) return;
-      galleryOpened = true;
-      gallery.style.display = "flex";
+      if (galleryContent) return;
+      galleryContent = true;
+      galleryContent.style.display = "flex";
     });
 
     // Changement du texte "login"
@@ -300,7 +325,7 @@ function checkFormCompletion() {
 
 
 
-//modal2 Ajout d'un écouteur d'événement pour le bouton de validation
+// //modal2 Ajout d'un écouteur d'événement pour le bouton de validation
 validButton.addEventListener('click', async (e) => {
   e.preventDefault(); // Empêche le comportement par défaut du bouton de soumission
 
@@ -334,5 +359,3 @@ validButton.addEventListener('click', async (e) => {
     alert('Erreur lors de l\'ajout de l\'image');
   }
 });
-
-

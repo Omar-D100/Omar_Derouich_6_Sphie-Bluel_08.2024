@@ -16,9 +16,6 @@ function clearErrors() {
     });
 }
 
-// Ecoute du submit
-form.addEventListener("submit", handleSubmit)
-
 async function handleSubmit(e) {
     e.preventDefault();
 
@@ -55,11 +52,12 @@ async function handleSubmit(e) {
 
     sessionStorage.setItem('token', result.token);
 
-    window.location.href = "http://localhost:5500/FrontEnd";
+    console.log(result.token)
+    window.location.href = "index.html";
 }
 
-
-
+// Ecoute du submit
+form.addEventListener("submit", handleSubmit)
 
 
 
