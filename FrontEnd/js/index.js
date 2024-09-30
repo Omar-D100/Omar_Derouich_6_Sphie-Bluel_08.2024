@@ -14,12 +14,11 @@ async function getWorks() {
 
 function displayWorks(filter) {
   portfolioGallery.innerHTML = ""; // Vider la galerie avant d'ajouter de nouveaux
-  const works = getWorks();
-  const filteredData = filter ? works.filter((work) => work.category.id === filter.id) : works;
-  filteredData.then(items => {
-    items.forEach(item => {
+  getWorks().then(works => {
+    const filteredData = filter ? works.filter((work) => work.category.id === filter.id) : works;
+    filteredData.forEach(item => {
       createWork(item);
-    })
+    });
   })
 }
 
