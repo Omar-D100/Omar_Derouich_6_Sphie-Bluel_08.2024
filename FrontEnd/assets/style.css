@@ -265,6 +265,21 @@ ul li a{
 }
 
 
+.login-form-group {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+
+.login-form-error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+	text-align: center;
+}
+
+
 /***** MODE EDITION *****/
 
 #edition {
@@ -290,7 +305,6 @@ ul li a{
 	font-family: 'Work Sans';
 	font-weight: 500;
 	font-size: 14px;
-	cursor: pointer;
 }
 
 .editionModif {
@@ -422,8 +436,8 @@ i {
 	left: 95%;
 }
 .gallery-photos {
-	margin-top: 20px;
-	margin-bottom: 40px;
+	margin-top: 60px;
+	margin-bottom: 60px;
 	display: grid;
 	row-gap: 20px;
 	grid-template-columns: repeat(auto-fill, 80px);
@@ -680,14 +694,8 @@ i {
 	color: rgb(185, 197, 204);
 }
 
-/* Custom CSS */
-.login-form-group {
-	display: flex;
-	flex-direction: column;
-}
-.login-form-error {
-	color: red;	
-}
+
+
 
 @media only screen and (max-width: 745px) {
 

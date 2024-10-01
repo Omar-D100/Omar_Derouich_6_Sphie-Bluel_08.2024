@@ -1,13 +1,19 @@
-const url = "http://localhost:5678/api/users/login"
+const url = "http://localhost:5678/api/users/login";
 
-const form = document.getElementById('login-form')
+const form = document.getElementById('login-form');
 
 function createError(e, field, text) {
-    const errorText = document.createElement('p')
-    errorText.classList.add('login-form-error')
-    errorText.textContent = text
-    e.target[field].parentNode.appendChild(errorText)
+    const errorText = document.createElement('p');
+    errorText.classList.add('login-form-error');
+    errorText.textContent = text;
+    if (field) {
+        e.target[field].parentNode.appendChild(errorText);
+    } else {
+        document.querySelector("form").prepend(errorText);
+    }
 }
+
+
 
 function clearErrors() {
     const errorMessages = document.querySelectorAll('.login-form-error');
@@ -19,50 +25,46 @@ function clearErrors() {
 async function handleSubmit(e) {
     e.preventDefault();
 
-    let errors = []
+    let errors = [];
 
     // Récupérer les valeurs des champs
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    // Supprimer les anciennes erreurs
-    clearErrors();
+   // Supprimer les anciennes erreurs
+   clearErrors();
 
     if (!email) {
-        createError(e, "email", errors["email"] = "Veuillez remplir le champ email")
+        createError(e, "email", errors["email"] = "Veuillez remplir le champ email");
     }
 
     if (!password) {
-        createError(e, "password", errors["password"] = "Veuillez remplir le champ mot de passe")
+        createError(e, "password", errors["password"] = "Veuillez remplir le champ mot de passe");
     }
 
     if (Object.keys(errors).length > 0) {
         return;
     }
 
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-    });
 
-    const result = await response.json();
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
 
-    sessionStorage.setItem('token', result.token);
+        if (!response.ok) {
+            createError(e, null, "Veuillez vérifier votre email et/ou votre mot de passe");
 
-    console.log(result.token)
-    window.location.href = "index.html";
-}
+        } else {
+            const result = await response.json();
+            sessionStorage.setItem('token', result.token);
+            console.log(result.token);
+            window.location.href = "index.html";
+        }
+    }
 
-// Ecoute du submit
-form.addEventListener("submit", handleSubmit)
-
-
-
-
-
-
-
+form.addEventListener('submit', handleSubmit);
 
