@@ -170,6 +170,7 @@ const connected = () => {
   const filtersWorks = document.querySelector('.category-div-parents');
 
   if (token) {
+    filtersWorks.style.display = 'none';
     editWorksButton.addEventListener('click', (e) => {
       e.preventDefault();
       if (galleryContent) return;
@@ -193,7 +194,7 @@ const connected = () => {
   } else {
     editionElement.style.display = 'none';
     editWorksButton.style.display = 'none';
-    filtersWorks.style.display = 'none';
+    filtersWorks.style.display = 'flex';
   }
 
 };
@@ -353,6 +354,19 @@ validButton.addEventListener('click', async (e) => {
     }
 
     const result = await response.json();
+
+    displayWorks(selectedCategory);
+    galleryAdd.classList.remove('active');
+    addImageInput.value='';
+    const miniatureImage = document.querySelector('.miniature');
+    miniatureImage.remove();
+    addImageButton.style.display = 'block';
+    textImageElement.style.display = 'block';
+    iconeImageElement.style.display = 'block';
+    titleInput.value='';
+    categorySelect.value='';
+    
+
     alert('Image ajoutée avec succès !');
 
   } catch (error) {

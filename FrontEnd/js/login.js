@@ -14,7 +14,6 @@ function createError(e, field, text) {
 }
 
 
-
 function clearErrors() {
     const errorMessages = document.querySelectorAll('.login-form-error');
     errorMessages.forEach(function (error) {
