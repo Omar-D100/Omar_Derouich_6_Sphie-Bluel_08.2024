@@ -12,15 +12,20 @@ async function getWorks() {
   return works;
 }
 
+// Fonction pour afficher les travaux en fonction du filtre sélectionné
 function displayWorks(filter) {
-  portfolioGallery.innerHTML = ""; // Vider la galerie avant d'ajouter de nouveaux
+  portfolioGallery.innerHTML = ""; // Vider la galerie avant d'ajouter de nouveaux travaux
   getWorks().then(works => {
+
+    // Filtrer les travaux en fonction de la catégorie sélectionnée
     const filteredData = filter ? works.filter((work) => work.category.id === filter.id) : works;
+    // Créer et ajouter chaque travail filtré à la galerie
     filteredData.forEach(item => {
       createWork(item);
     });
-  })
+  });
 }
+
 
 // Fonction pour créer et ajouter une figure (image + légende) à la galerie
 function createWork(data) {
@@ -47,11 +52,11 @@ async function getCategories() {
 function displayCategories() {
   const categories = getCategories();
   categories.then(items => {
-    createCategory();
+    createCategory(); // Créer et ajouter le bouton "Tous"
     items.forEach(item => {
-      createCategory(item);
-    })
-  })
+      createCategory(item); // Créer et ajouter un bouton pour chaque catégorie
+    });
+  });
 }
 
 // Fonction pour créer et ajouter un filtre de catégorie
@@ -60,17 +65,16 @@ function createCategory(data) {
   button.type = "button";
   button.addEventListener("click", () => {
     const activeButton = document.querySelector(".category.active");
-    activeButton.classList.remove("active");
-    button.classList.add("active");
-    selectedCategory = data;
-    displayWorks(data);
+    activeButton.classList.remove("active"); 
+    button.classList.add("active"); 
+    selectedCategory = data; // Mettre à jour la catégorie sélectionnée
+    displayWorks(data); // Afficher les travaux filtrés par la catégorie sélectionnée
   }); // Ajouter un écouteur d'événement pour filtrer les travaux
   button.textContent = data ? data.name : "Tous"; // Afficher le nom de la catégorie ou "Tous"
-  button.className = `category ${!data ? "active" : ""}`
+  button.className = `category ${!data ? "active" : ""}`; // Ajouter la classe active au bouton "Tous"
   divParents.append(button); // Ajouter le filtre à l'élément parent
-
 }
 
-// Appel initial pour récupérer et afficher les catégories
+
 displayCategories();
 displayWorks();

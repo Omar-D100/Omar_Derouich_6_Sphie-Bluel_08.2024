@@ -1,5 +1,3 @@
-"use strict";
-
 //modal 1 Sélection des éléments du DOM
 const portfolioEditButton = document.querySelector(".portfolio-header-edit");
 const gallery = document.querySelector(".gallery");
@@ -17,13 +15,19 @@ galleryContent.addEventListener("click", (e) => {
 });
 galleryAddButton.addEventListener("click", (e) => openGalleryAdd(e));
 
-function handleDelete(event, workId , elementToRemove) {
+// Fonction pour gérer la suppression d'un travail
+function handleDelete(event, workId, elementToRemove) {
+  // Empêche le comportement par défaut de l'événement (par exemple, la soumission d'un formulaire)
   event.preventDefault();
 
+  // Appelle la fonction deleteWork avec l'ID du travail à supprimer
   deleteWork(workId).then((deleted) => {
+    // Si la suppression est réussie
     if (deleted) {
+      // Affiche les travaux de la catégorie sélectionnée
       displayWorks(selectedCategory);
-      elementToRemove.remove();// SUPPRIMER L'IMAGE DE LA GALLERIE
+      // Supprime l'élément de la galerie
+      elementToRemove.remove();
     }
   });
 }
@@ -83,6 +87,7 @@ function openGalleryAdd(e) {
   galleryAdd.classList.add('active'); // Ouvrir le galleryAdd
 }
 
+
 // Fonction pour supprimer un travail du serveur
 async function deleteWork(workId) {
   const accessToken = sessionStorage.getItem('token');
@@ -129,6 +134,7 @@ function openGalleryAdd() {
 function closeGalleryAdd() {
   galleryAdd.classList.remove('active');
 }
+
 
 function returnToGallery() {
   galleryAdd.classList.remove('active');
@@ -222,46 +228,57 @@ const validButton = document.querySelector('.valid-button');
 
 // Ajout d'un écouteur d'événement pour détecter le changement de fichier
 addImageInput.addEventListener('change', (e) => {
-  // Taille maximale de l'image en octets (4 Mo)
+
   const imageMaxSize = 4194304;
-
-  // Vérifie si la taille du fichier sélectionné est inférieure ou égale à 4 Mo
-  if (e.target.files[0].size <= imageMaxSize) {
-    // Masquer les éléments de l'interface utilisateur
-    addImageButton.style.display = 'none';
-    addImageInput.style.display = 'none';
-    textImageElement.style.display = 'none';
-    iconeImageElement.style.display = 'none';
-
-    // Créer un conteneur pour la miniature de l'image
-    const miniatureContainer = document.createElement('div');
-    miniatureContainer.setAttribute('id', 'miniature-container');
-
-    // Créer un élément img pour afficher la miniature
-    const miniatureImage = document.createElement('img');
-    miniatureImage.classList.add('miniature');
-
-    // Utiliser FileReader pour lire le fichier et afficher la miniature
-    const reader = new FileReader();
-    reader.onload = function (event) {
-      // Définir la source de l'image avec le résultat de la lecture
-      miniatureImage.src = event.target.result;
-    };
-    // Lire le fichier comme une URL de données
-    reader.readAsDataURL(e.target.files[0]);
-
-    // Ajouter l'image miniature au conteneur
-    miniatureContainer.appendChild(miniatureImage);
-    // Ajouter le conteneur de la miniature à l'élément parent
-    addImageContainer.appendChild(miniatureContainer);
-
-  } else {
-    // Afficher un message d'erreur si la taille du fichier est trop grande
-    alert("La taille de l'image est supérieure à 4Mo");
-    // Réinitialiser la valeur de l'input
-    addImageInput.value = "";
-  }
-  checkFormCompletion();
+  const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+  
+  addImageInput.addEventListener('change', function (e) {
+    const file = e.target.files[0];
+  
+    if (file.size <= imageMaxSize) {
+      if (validImageTypes.includes(file.type)) {
+        // Masquer les éléments de l'interface utilisateur
+        addImageButton.style.display = 'none';
+        addImageInput.style.display = 'none';
+        textImageElement.style.display = 'none';
+        iconeImageElement.style.display = 'none';
+  
+        // Créer un conteneur pour la miniature de l'image
+        const miniatureContainer = document.createElement('div');
+        miniatureContainer.setAttribute('id', 'miniature-container');
+  
+        // Créer un élément img pour afficher la miniature
+        const miniatureImage = document.createElement('img');
+        miniatureImage.classList.add('miniature');
+  
+        // Utiliser FileReader pour lire le fichier et afficher la miniature
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          // Définir la source de l'image avec le résultat de la lecture
+          miniatureImage.src = event.target.result;
+        };
+        // Lire le fichier comme une URL de données
+        reader.readAsDataURL(file);
+  
+        // Ajouter l'image miniature au conteneur
+        miniatureContainer.appendChild(miniatureImage);
+        // Ajouter le conteneur de la miniature à l'élément parent
+        addImageContainer.appendChild(miniatureContainer);
+      } else {
+        // Afficher un message d'erreur si le fichier n'est pas une image
+        alert("Le fichier sélectionné n'est pas une image valide.");
+        // Réinitialiser la valeur de l'input
+        addImageInput.value = "";
+      }
+    } else {
+      // Afficher un message d'erreur si la taille du fichier est trop grande
+      alert("La taille de l'image est supérieure à 4Mo");
+      // Réinitialiser la valeur de l'input
+      addImageInput.value = "";
+    }
+    checkFormCompletion();
+  });
+  
 });
 
 
